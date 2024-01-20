@@ -42,22 +42,30 @@ def setUpCharacter(number, notAllowed):
         char = input()
     return char
 
+def printWinner(winner):
+    print(f'Game over! {winner} has won')
 def CheckWin():
     for i in range(3):
         # Check rows
         if map[i][0] == map[i][1] == map[i][2] != ' ':
-            return map[i][0]
+            printWinner(map[i][0])
+            exit()
         # Check columns
         if map[0][i] == map[1][i] == map[2][i] != ' ':
-            return map[0][i]
+            printWinner(map[0][i])
+            exit()
 
     # Check diagonals
     if map[0][0] == map[1][1] == map[2][2] != ' ':
-        return map[0][0]
+        printWinner(map[0][0])
+        exit()
     if map[0][2] == map[1][1] == map[2][0] != ' ':
-        return map[0][2]
+        printWinner(map[0][2])
+        exit()
 
-    return False  # No winner yet
+    if not np.isin(' ', map):
+        print('Game over! its a draw')
+        exit()
 
 if __name__ == '__main__':
     print(f'TicTacToe')
@@ -67,9 +75,7 @@ if __name__ == '__main__':
     while True:
         handle_turn(char1)
         print_Map()
+        CheckWin()
         handle_turn(char2)
         print_Map()
-        winner=CheckWin()
-        if(winner is not False):
-            print(f'Game over {winner} has won')
-            exit()
+        CheckWin()
